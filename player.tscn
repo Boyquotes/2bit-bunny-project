@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cibwkvlaeb7dc"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_e3h0m"]
+[ext_resource type="Texture2D" uid="uid://7kp8gjmfb45y" path="res://Resources/2bitbunnysprites.png" id="2_7houd"]
+
+[sub_resource type="Animation" id="Animation_u5354"]
+resource_name = "walk_left"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 8, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r6hq6"]
+_data = {
+"walk_left": SubResource("Animation_u5354")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v60tg"]
+size = Vector2(140.75, 169)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(159, 122)
+script = ExtResource("1_e3h0m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(57, 74.75)
+scale = Vector2(7, 4.812)
+texture = ExtResource("2_7houd")
+hframes = 6
+vframes = 6
+frame = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_r6hq6")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(61, 85)
+shape = SubResource("RectangleShape2D_v60tg")
